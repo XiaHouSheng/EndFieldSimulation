@@ -1,5 +1,40 @@
-# Vue 3 + Vite
+# EndFieldSimulation | 终末地模拟器
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+<div align="center">
+  <img src="https://placeholder.pics/svg/800x200/2C3E50/ECF0F1/EndFieldSimulation%20%7C%20终末地模拟器" alt="EndFieldSimulation Logo" />
+  <p>🎮 基于《明日方舟：终末地》的物料配平与效率模拟工具</p>
+  <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" />
+  <img src="https://img.shields.io/badge/Vue-3.x-brightgreen.svg" alt="Vue 3" />
+  <img src="https://img.shields.io/badge/Element%20Plus-Latest-blueviolet.svg" alt="Element Plus" />
+  <img src="https://img.shields.io/badge/Gridstack.js-Latest-orange.svg" alt="Gridstack.js" />
+</div>
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## 📌 项目定位
+一款面向《明日方舟：终末地》的多功能工具平台，核心能力包含：
+- 📊 物料配平计算
+- ⚡ 生产效率模拟
+- 📤 蓝图分享与管理
+
+## 🛠 技术栈
+- 前端框架：Vue 3
+- UI 组件库：Element Plus（高效搭建交互界面）
+- 网格编辑：Gridstack.js（快速实现可视化网格场景编辑）
+
+## 📋 核心任务列表
+### 基础场景搭建
+- [ ] 网格场景可视化搭建
+- [ ] 供料模块开发
+- [ ] 各类机器模块实现
+- [ ] 传送带模块开发
+
+### 功能逻辑整合
+- [ ] 机器模块与传送带的连接逻辑
+- [ ] 全品类机器数据整合
+- [ ] 产物生产效率自动计算
+
+## 📄 开源协议
+本项目采用 **MIT 开源协议**，你可以自由使用、修改、分发本项目代码，详情请查阅 [LICENSE](./LICENSE) 文件。
+
+## 📞 说明
+- 项目仍在开发中，任务列表会随进度持续更新
+- 欢迎提交 Issue/PR 参与功能开发与问题修复
