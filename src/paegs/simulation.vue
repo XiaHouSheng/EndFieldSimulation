@@ -2,9 +2,10 @@
   <el-row :gutter="6" class="container">
     <el-col :span="4">
       <div class="sheng-cont-list sidebar sheng-test-border">
+        <!--data-gs-widget后续直接生成，目前便于测试先这么整-->
         <div
           v-for="value in 1"
-          data-gs-widget='{"w":3, "h":3, "noResize":true }'
+          data-gs-widget='{"w":3, "h":3, "noResize":true, "id":"conveyerbelt"}'
           class="sheng-cont-item sidebar-item sheng-test-border display-flex flex-direation-row"
         >
           <div class="grid-stack-content"></div>
@@ -21,24 +22,24 @@
 </template>
 
 <script setup>
-import { ref, onMounted, nextTick, createVNode, render } from "vue";
+import {
+  h,
+  ref,
+  onMounted,
+  nextTick,
+  createVNode,
+  render,
+  getCurrentInstance,
+} from "vue";
 import { GridStack } from "gridstack";
 import ConveyerBelt from "../components/simulation/ConveyerBelt.vue";
 import "gridstack/dist/gridstack.min.css";
 
 const NUM_COLUMN = 32;
+const { appContext } = getCurrentInstance();
 const targetGrid = ref(null);
 let grid = null;
-
-const selfClone = (element) => {
-  let cloneNode = element.cloneNode(true);
-  cloneNode.replaceChildren()
-  const vnode = createVNode(
-    ConveyerBelt,
-  );
-  render(vnode,cloneNode)
-  return cloneNode;
-};
+const gridWidget = ref({})
 
 onMounted(async () => {
   await nextTick();
@@ -51,6 +52,25 @@ onMounted(async () => {
       return true;
     },
   });
+
+  const selfClone = (element) => {
+    let cloneNode = element.cloneNode(true);
+    cloneNode.replaceChildren();
+    const gs_id = JSON.parse(
+      cloneNode.attributes.getNamedItem("data-gs-widget").nodeValue
+    ).id + `-${Date.now()}-${Math.floor(Math.random() * 1000)}`
+    gridWidget.value[gs_id] = cloneNode;
+    const vnode = createVNode(ConveyerBelt, {
+      gs_id: gs_id,
+      onDelete: (gs_id) => {
+        grid.removeWidget(gridWidget.value[gs_id]);
+      },
+    });
+    vnode.appContext = appContext;
+    render(vnode, cloneNode);
+    return cloneNode;
+  };
+
   GridStack.setupDragIn(".sidebar-item", { helper: selfClone });
   grid.column(NUM_COLUMN);
 });
