@@ -3,6 +3,7 @@
     <el-col :span="4">
       <div class="sheng-cont-list sidebar sheng-test-border">
         <!--data-gs-widget后续直接生成，目前便于测试先这么整-->
+        <!--data-gs-widget也可以用于传递参数，如inner与outer数量等-->
         <div
           v-for="value in 1"
           data-gs-widget='{"w":3, "h":3, "noResize":true, "id":"conveyerbelt"}'
@@ -15,7 +16,7 @@
     </el-col>
     <el-col :span="20">
       <div class="sheng-cont-grid">
-        <div ref="targetGrid" class="grid-stack"></div>
+        <div @click="rootStore.handleBeltNode" ref="targetGrid" id="grid-stack" class="grid-stack"></div>
       </div>
     </el-col>
   </el-row>
@@ -34,45 +35,35 @@ import {
 import { GridStack } from "gridstack";
 import ConveyerBelt from "../components/simulation/ConveyerBelt.vue";
 import "gridstack/dist/gridstack.min.css";
+import { useRootStore } from "../stores/SimStore";
 
-const NUM_COLUMN = 32;
 const { appContext } = getCurrentInstance();
-const targetGrid = ref(null);
-let grid = null;
-const gridWidget = ref({})
+const rootStore = useRootStore();
 
 onMounted(async () => {
   await nextTick();
-  grid = GridStack.init({
-    cellHeight: targetGrid.value.clientWidth / NUM_COLUMN,
-    minRow: 12,
-    allowNewRow: true,
-    float: true,
-    acceptWidgets: function (el) {
-      return true;
-    },
-  });
-
+  //初始化
+  const targetGridEl = document.querySelector("#grid-stack");
+  rootStore.initGrid(targetGridEl);
+  //自定义克隆函数，用于拖拽添加
   const selfClone = (element) => {
+    //拷贝待加入的cell
     let cloneNode = element.cloneNode(true);
     cloneNode.replaceChildren();
-    const gs_id = JSON.parse(
-      cloneNode.attributes.getNamedItem("data-gs-widget").nodeValue
-    ).id + `-${Date.now()}-${Math.floor(Math.random() * 1000)}`
-    gridWidget.value[gs_id] = cloneNode;
+    //唯一id分配
+    const gs_id = JSON.parse(cloneNode.attributes.getNamedItem("data-gs-widget").nodeValue).id + `-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+    //cell元素存储，用于删除与定位
+    rootStore.gridWidgets[gs_id] = cloneNode;
+    //vue组件映射 | 这个函数计划并入组件作为参数
     const vnode = createVNode(ConveyerBelt, {
       gs_id: gs_id,
-      onDelete: (gs_id) => {
-        grid.removeWidget(gridWidget.value[gs_id]);
-      },
     });
     vnode.appContext = appContext;
     render(vnode, cloneNode);
     return cloneNode;
   };
-
+  //拖拽设置
   GridStack.setupDragIn(".sidebar-item", { helper: selfClone });
-  grid.column(NUM_COLUMN);
 });
 </script>
 
@@ -97,7 +88,6 @@ onMounted(async () => {
 .sheng-cont-item {
   min-height: 60px;
   margin: 0 0 6px 0;
-  padding: 0 6px 0 6px;
 }
 :deep(.grid-stack-item) {
   text-align: center;

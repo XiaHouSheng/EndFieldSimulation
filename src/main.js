@@ -6,10 +6,11 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import * as _ from 'lodash';
 import router from './routers'
 import './style.css'
+import { createPinia } from 'pinia'
 
-
+const pinia = createPinia()
 const app = createApp(App)
-app.use(ElementPlus).use(router)
+app.use(ElementPlus).use(router).use(pinia)
 app.config.globalProperties._ = _;
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)

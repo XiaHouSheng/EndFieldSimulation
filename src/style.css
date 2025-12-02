@@ -24,6 +24,14 @@
   width: 100%;
 }
 
+.max-height{
+  height: 100%;
+}
+
+.max-width{
+  width: 100%;
+}
+
 .flex-direation-row {
   flex-direction: row;
 }
@@ -60,8 +68,12 @@
   position: relative;
 }
 
-.sim-delete-btn{
-  position: absolute;
-  right: 0;
-  top: 6px;
+.sim-inner-btn{
+  background-color: #8bc34a;
+  margin-top: 3px;
+}
+
+.sim-outer-btn{
+  background-color: #e51c23;
+  margin-top: 3px;
 }
