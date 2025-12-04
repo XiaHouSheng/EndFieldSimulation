@@ -28,6 +28,7 @@ const handleRightClick = (event) => {
 //进出口事件
 const handleBeltConnect = (event, which) => {
   event.stopPropagation();
+  return
   if (!rootStore.isBeltConnecting) {
     //inner outter specific
     rootStore.startBeltConnect(event, which, props.gs_id);

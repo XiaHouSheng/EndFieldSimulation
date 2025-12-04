@@ -27,6 +27,7 @@ const handleRightClick = (event) => {
 //进出口事件
 const handleBeltConnect = (event, which) => {
   event.stopPropagation();
+  return
   if (!rootStore.isBeltConnecting) {
     //inner outter specific
     rootStore.startBeltConnect(event, which, props.gs_id);
@@ -37,33 +38,21 @@ const handleBeltConnect = (event, which) => {
 </script>
 
 <template>
-  <div
-    class="max-height-width display-flex flex-direation-col justify-content-center"
-    @contextmenu="handleRightClick"
-  >
-    <div
-      class="display-flex flex-direation-row justify-content-center"
-    >
-      <!-- inner数量 = width=3 -->
-    </div>
+  <div class="max-height-width" @contextmenu="handleRightClick">
     <div class="display-flex flex-direation-row justify-content-center">
-    </div>
-    <div
-      class="display-flex flex-direation-row justify-content-center"
-    >
       <!-- outer数量 = width=3 -->
       <el-button
-        @click="handleBeltConnect($event,'outter')"
+        @click="handleBeltConnect($event, 'outter')"
         class="sim-outer-btn"
         round
       ></el-button>
       <el-button
-        @click="handleBeltConnect($event,'outter')"
+        @click="handleBeltConnect($event, 'outter')"
         class="sim-outer-btn"
         round
       ></el-button>
       <el-button
-        @click="handleBeltConnect($event,'outter')"
+        @click="handleBeltConnect($event, 'outter')"
         class="sim-outer-btn"
         round
       ></el-button>

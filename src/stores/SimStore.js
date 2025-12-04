@@ -4,16 +4,16 @@ import { markRaw } from "vue";
 
 export const useRootStore = defineStore("sheng-root-store", {
   state: () => ({
-    isBeltConnecting: false, //是否处于传送带连接状态
+    isBeltConnecting: true, //是否处于传送带连接状态
     gridWidgets: {}, //用于所有模拟控件的存储
     rootGrid: null, //存储根gridstack对象
     rootGridEngine: null, //gridstack引擎
     gridEl: null, //存储根元素对象
-    defaultWidth: null,
-    defaultHeight: null,
+    defaultWidth: 1578,
+    defaultHeight: 1578,
+    defaultMaxWidth: 3017,
     numColumn: 72, //列个数
     gridOptions: {
-      cellHeight: null, //单元格的高度 = 父控件宽度 / 列个数 | 保持正方体
       minRow: 72, //行个数
       allowNewRow: true, //可向下扩充行
       float: true, //可以随意摆放
@@ -22,18 +22,19 @@ export const useRootStore = defineStore("sheng-root-store", {
         return true;
       },
     },
-    connectNodes: [], //存储节点，限制为一次连接，完成或者取消时清空
+    connectNodes: [], //存储节点
   }),
 
   actions: {
     initGrid(target_el) {
       this.gridEl = markRaw(target_el);
-      this.defaultHeight = target_el.clientHeight;
-      this.defaultWidth = target_el.clientWidth;
       this.rootGrid = markRaw(GridStack.init(this.gridOptions, target_el));
       this.rootGrid.column(this.numColumn);
-      this.gridOptions.cellHeight = this.rootGrid.cellWidth();
+      this.gridEl.style.width = `${this.defaultWidth}px`;
+      this.gridEl.style.height = `${this.defaultHeight}px`;
     },
+
+    
 
     //缩放
     handleScalingChange(event) {
@@ -41,9 +42,14 @@ export const useRootStore = defineStore("sheng-root-store", {
       event.stopPropagation();
       let deltaPlus = event.deltaY * 5;
       let contWidth = this.gridEl.clientWidth + deltaPlus;
-      this.gridEl.style.width = `${Math.max(this.defaultWidth,contWidth)}px`;
-      this.gridOptions.cellHeight = this.rootGrid.cellWidth();
-      this.rootGrid.cellHeight(this.gridOptions.cellHeight);
+      if (deltaPlus < 0) {
+        this.gridEl.style.width = `${Math.max(this.defaultWidth, contWidth)}px`;
+      } else {
+        this.gridEl.style.width = `${Math.min(
+          this.defaultMaxWidth,
+          contWidth
+        )}px`;
+      }
     },
 
     //此方法目前没有算scroll量后续还需要修改
@@ -65,6 +71,18 @@ export const useRootStore = defineStore("sheng-root-store", {
 
     isCellEmptyByPosition(x, y) {
       return this.rootGrid.isAreaEmpty(x, y, 1, 1);
+    },
+
+    pushNewNodeFromPosition(position,which,gs_id) {
+      const node = {
+        x: position["x"],
+        y: position["y"],
+        gs_id: gs_id,
+        type: which,
+      };
+      //specific类个人暂定为分配器等，其坐标就是节点坐标
+      //打包节点
+      this.connectNodes.push(node);
     },
 
     pushNewNode(event, which, gs_id) {
@@ -103,8 +121,8 @@ export const useRootStore = defineStore("sheng-root-store", {
 
     //连接过程
     handleBeltNode(event) {
-      //传送带连接
-      if (this.isBeltConnecting) {
+      //传送带连接-暂时停用节点关联模式，后续再更新
+      if (false) {
         console.log("belt node gene!");
         //当前单元格为空就生成新的节点，途中的传送带一起生成
         //根据上一个节点进行连接
@@ -126,7 +144,32 @@ export const useRootStore = defineStore("sheng-root-store", {
           }
         }
       }
-      return;
+      if (this.isBeltConnecting) {
+        //判空
+        if (this.isCellEmpty(event)) {
+          const position = this.getPositionFromClick(event)
+          const oldNode = this.connectNodes.at(-1); 
+          //判断是否有旧的节点
+          if (!oldNode) {
+            this.generateFirstBelt(position)
+            this.pushNewNodeFromPosition(position,"conveyer","conveyerBelt")
+            console.log(this.connectNodes)
+            return
+          }
+          this.generateBelt(oldNode,position,"conveyerBelt")
+        }
+      }
+    },
+
+    generateFirstBelt(position) {
+      this.rootGrid.addWidget({
+        x: position.x,
+        y: position.y,
+        w: 1,
+        h: 1,
+        noResize: true,
+        id: "conveyerBelt",
+      });
     },
 
     generateBelt(oldNode, newPosition, id) {
@@ -158,16 +201,20 @@ export const useRootStore = defineStore("sheng-root-store", {
           index += 1;
         }
         if (startY == newPosition.y) {
-          return id;
+          //return id;
         }
-        return id + `-${index - 1}`;
+        //return id + `-${index - 1}`;
+        this.pushNewNodeFromPosition(newPosition,"convyerBelt","convyerBelt")
+        return
       }
       if (oldNode.y == newPosition.y) {
+        /*
+        这个判断是当时没考虑机器可以旋转，出入口强制垂直进出而不能水平
         if (oldNode.type != "conveyer") {
           console.log("not conveyer");
           return;
         }
-
+        */
         //console.log(oldNode,newPosition)
         let startX = Math.min(oldNode.x + 1, newPosition.x);
         let preDelta = Math.abs(oldNode.x - newPosition.x);
@@ -194,12 +241,14 @@ export const useRootStore = defineStore("sheng-root-store", {
           index += 1;
         }
         if (startX == newPosition.x) {
-          return id;
+          //return id;
         }
-        return id + `-${index - 1}`;
+        //return id + `-${index - 1}`;
+        this.pushNewNodeFromPosition(newPosition,"convyerBelt","convyerBelt")
+        return
       }
       //暂定非直线不行
-      return;
+      console.log("not a line")
     },
   },
 });

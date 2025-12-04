@@ -116,9 +116,10 @@
           <el-text class="list-span">研磨机</el-text>
         </div>
 
-        <!-- 3x1 尺寸机器 -->
+        <!-- 3x2 尺寸机器 -->
         <div
           v-for="value in 1"
+          gs-h="1"
           data-gs-widget='{"w":3, "h":2, "noResize":true, "id":"warehouseDepositPort"}'
           class="sheng-cont-item sidebar-item sheng-test-border display-flex flex-direation-row"
         >
@@ -177,11 +178,13 @@ onMounted(async () => {
     //拷贝待加入的cell
     let cloneNode = element.cloneNode(true);
     cloneNode.replaceChildren();
+
     //唯一id分配
     const root_id = JSON.parse(
       cloneNode.attributes.getNamedItem("data-gs-widget").nodeValue
     ).id;
     const gs_id = root_id + `-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+    console.log(gs_id)
     //cell元素存储，用于删除与定位
     rootStore.gridWidgets[gs_id] = cloneNode;
     //vue组件映射 | 这个函数计划并入组件作为参数
