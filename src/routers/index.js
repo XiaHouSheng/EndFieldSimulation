@@ -1,6 +1,6 @@
 // src/router/index.js
 
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 
 // 导入业务页面组件（均基于 Root 容器开发）
 import home from '../paegs/home.vue'
@@ -35,7 +35,7 @@ const routes = [
 
 // 创建路由实例
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL), // 无#的History模式
+  history: createWebHashHistory(), // 哈希模式
   routes,
   scrollBehavior() { // 路由切换时回到顶部
     return { top: 0 }
