@@ -39,8 +39,7 @@ const handleBeltConnect = (event, which) => {
 
 <template>
   <div
-    class="max-height-width display-flex flex-direation-col"
-    style="justify-content: end;"
+    class="max-height-width display-flex flex-direation-col justify-content-center"
     @contextmenu="handleRightClick"
   >
     <div

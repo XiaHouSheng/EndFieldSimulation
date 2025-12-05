@@ -126,7 +126,7 @@
         <div
           v-for="value in 1"
           gs-h="1"
-          data-gs-widget='{"w":3, "h":2, "noResize":true, "id":"warehouseDepositPort"}'
+          data-gs-widget='{"w":3, "h":1, "noResize":true, "id":"warehouseDepositPort"}'
           class="sheng-cont-item sidebar-item sheng-test-border display-flex flex-direation-row"
         >
           <div class="grid-stack-content"></div>
@@ -135,7 +135,7 @@
 
         <div
           v-for="value in 1"
-          data-gs-widget='{"w":3, "h":2, "noResize":true, "id":"warehouseWithdrawalPort"}'
+          data-gs-widget='{"w":3, "h":1, "noResize":true, "id":"warehouseWithdrawalPort"}'
           class="sheng-cont-item sidebar-item sheng-test-border display-flex flex-direation-row"
         >
           <div class="grid-stack-content"></div>
@@ -187,7 +187,7 @@ onMounted(async () => {
     //拷贝待加入的cell
     let cloneNode = element.cloneNode(true);
     cloneNode.replaceChildren();
-
+    cloneNode.classList.remove("sheng-cont-item")
     //唯一id分配
     const root_id = JSON.parse(
       cloneNode.attributes.getNamedItem("data-gs-widget").nodeValue
@@ -228,9 +228,13 @@ onMounted(async () => {
   padding: 0 3px 0 3px;
 }
 .sheng-cont-item {
-  overflow: hidden;
   min-height: 60px;
 }
+
+.sidebar-item{
+  overflow: hidden;
+}
+
 :deep(.grid-stack-item) {
   text-align: center;
   background: #fff;
