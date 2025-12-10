@@ -6,8 +6,9 @@ export const useRootStore = defineStore("sheng-root-store", {
   state: () => ({
     toolbarMode: "default",
     toolbarModeHistory: "default",
-    gridWidgets: {}, //用于所有模拟控件的存储|id->element
+    gridWidgets: {}, //用于非传送带模拟控件的存储|id->element
     gridWidgets2d: null, //用于模拟控件的存储（适用于1x1的传送带等)|x,y->element
+    gridWidgetsRotate: {}, //用于非传送带模拟控件的旋转属性存储|id->rotate
     rootGrid: null, //存储根gridstack对象
     rootGridEngine: null, //gridstack引擎
     gridEl: null, //存储根元素对象
@@ -61,6 +62,8 @@ export const useRootStore = defineStore("sheng-root-store", {
     deleteOneBelt(position) {
       const targetElement = this.gridWidgets2d[position.x][position.y];
       if (targetElement) {
+        //待定
+        targetElement.removeEventListener("click");
         this.rootGrid.removeWidget(targetElement);
         this.gridWidgets2d[position.x][position.y] = null;
       }
@@ -107,8 +110,8 @@ export const useRootStore = defineStore("sheng-root-store", {
       event.preventDefault();
       event.stopPropagation();
       //select模式时禁用滑动
-      if (this.toolbarMode == "select"){
-        return
+      if (this.toolbarMode == "select") {
+        return;
       }
       let deltaPlus = event.deltaY * 5;
       let contWidth = this.gridEl.clientWidth + deltaPlus;
@@ -127,12 +130,12 @@ export const useRootStore = defineStore("sheng-root-store", {
       console.log("mode change", this.toolbarMode, this.toolbarModeHistory);
       //select模式下禁用cont的scroll
       if (value == "select") {
-        this.gridElCont.style.overflow = "hidden"
-      }else{
-        this.gridElCont.style.overflow = "scroll"
+        this.gridElCont.style.overflow = "hidden";
+      } else {
+        this.gridElCont.style.overflow = "scroll";
       }
-      if (this.toolbarModeHistory == "belt"){
-        this.connectNodes.length = 0
+      if (this.toolbarModeHistory == "belt") {
+        this.connectNodes.length = 0;
       }
       this.toolbarModeHistory = value;
     },
@@ -244,13 +247,18 @@ export const useRootStore = defineStore("sheng-root-store", {
         }
       }
     },
+
     //生成一个传送带
     generateOneBelt(position) {
-      const craftElement = this.rootGrid.addWidget({
+      let craftElement = document.createElement("div");
+      craftElement.classList.add("cell-img")
+      craftElement.classList.add("three-split-green")
+      craftElement = this.rootGrid.makeWidget(craftElement, {
         x: position.x,
         y: position.y,
         w: 1,
         h: 1,
+        float: false,
         noResize: true,
         id: "conveyerBelt",
       });

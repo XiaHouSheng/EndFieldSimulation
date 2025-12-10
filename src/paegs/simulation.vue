@@ -192,26 +192,23 @@ onMounted(async () => {
   const selector = document.querySelector(".selection-box");
   selectStore.initSelector(selector);
   rootStore.initGrid(targetGridEl, targetGridCont);
-  //自定义克隆函数，用于拖拽添加
+  //自定义克隆函数，用于拖拽添加 （提交AI整理后）
   const selfClone = (element) => {
-    //拷贝待加入的cell
-    let cloneNode = element.cloneNode(true);
+    const cloneNode = element.cloneNode(true); // 克隆节点
     cloneNode.replaceChildren();
     cloneNode.classList.remove("sheng-cont-item");
-    //唯一id分配
-    const root_id = JSON.parse(
-      cloneNode.attributes.getNamedItem("data-gs-widget").nodeValue
-    ).id;
-    const gs_id =
-      root_id + `-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-    console.log(gs_id);
-    //cell元素存储，用于删除与定位
-    rootStore.gridWidgets[gs_id] = cloneNode;
-    //vue组件映射 | 这个函数计划并入组件作为参数
-    const vnode = createVNode(machineComponentMap[root_id], {
-      gs_id: gs_id,
-      el_name: machineNameMap[root_id],
-    });
+    const elConfig = JSON.parse(cloneNode.getAttribute("data-gs-widget")); // 读取配置
+    const rootId = elConfig.id;
+    const gsId = `${rootId}_${Date.now()}_${Math.floor(Math.random() * 1000)}`; // 生成唯一 id
+    elConfig.id = gsId;
+    cloneNode.setAttribute("data-gs-widget", JSON.stringify(elConfig)); // 写回配置
+    rootStore.gridWidgets[gsId] = cloneNode; // 存入 store
+    rootStore.gridWidgetsRotate[gsId] = 0 // 将旋转属性存入Store 
+    const vnode = createVNode(machineComponentMap[rootId], {
+      gs_id: gsId,
+      el_name: machineNameMap[rootId],
+      el_size: elConfig,
+    }); // 组件渲染
     vnode.appContext = appContext;
     render(vnode, cloneNode);
     return cloneNode;
@@ -261,7 +258,6 @@ onMounted(async () => {
 
 :deep(.grid-stack-item) {
   text-align: center;
-  background: #fff;
   border: 1px dashed #409eff;
   border-radius: 4px;
   box-sizing: border-box; /* 确保尺寸不会被边框影响 */
