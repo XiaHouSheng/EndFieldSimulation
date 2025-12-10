@@ -2,6 +2,8 @@
 import { ref } from "vue";
 import { useRootStore } from "../../stores/SimStore";
 
+//这份文件是用于测试的
+
 //后续可以脚本批量生成，根据inner与outer的数量
 const rootStore = useRootStore();
 const props = defineProps({
