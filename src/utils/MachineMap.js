@@ -32,6 +32,24 @@ export const machineComponentMap = {
   warehouseWithdrawalPort: WarehouseWithdrawalPort,
 };
 
+export const machineDataFileMap = {
+  refineryFurnace: 'furnance_1',
+  crusher: 'grinder_1',
+  accessoryMachine: 'cmpt_mc_1',
+  shapingMachine: 'shaper_1',
+  seedHarvester: 'seedcol_1',
+  planter: 'planter_1',
+  equipmentComponentMachine: 'winder_1',
+  fillingMachine: 'filling_pd_mc_1',
+  packagingMachine: 'tools_asm_mc_1',
+  grinder: 'thickener_1',
+  // —— jinlong 专属 —— | 这里还没有做组件，后续直接生成
+  dismantlerMachine: 'dismantler_1',
+  reactionPool: 'mix_pool_1',
+  waterPump: 'pump_1',
+  xiraniteFurnace: 'xiranite_oven_1',
+}
+
 export const machineNameMap = {
   conveyerbelt: '传送带',
   refineryFurnace: '精炼炉',
@@ -44,12 +62,18 @@ export const machineNameMap = {
   fillingMachine: '罐装机',
   packagingMachine: '封装机',
   grinder: '研磨机',
-  protocolStorageBox: '协议存储箱',
+  protocolStorageBox: '存储箱',
   warehouseDepositPort: '仓库存货口',
   warehouseWithdrawalPort: '仓库取货口',
+  // —— jinlong 专属 —— | 这里还没有做组件，后续直接生成
+  dismantlerMachine: '拆解机',
+  reactionPool: '反应池',
+  waterPump: '水泵',
+  xiraniteFurnace: '天有洪炉',
 };
 
 // 反向映射：中文名称 → 英文 key（方便根据中文查英文）
 export const machineKeyByCN = Object.fromEntries(
   Object.entries(machineNameMap).map(([key, name]) => [name, key])
 );
+

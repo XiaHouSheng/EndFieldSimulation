@@ -16,15 +16,17 @@ const props = defineProps({
     default: 0,
     type: Number,
   },
+  position: {
+    type: Object
+  }
 });
 const rotateAngle = ref(0);
 rotateAngle.value = props.rotate * 90
 const testClass = ref("belt-img");
 testClass.value = props.type;
-const hadnleRotate = (rotate) => {
+const hadnleRotate = () => {
   rotateAngle.value = ((rotateAngle.value / 90 + 1) % 4) * 90;
-  //rootStore.gridWidgetsRotate[props.gs_id] = rotateAngle.value / 90;
-  console.log(rotateAngle.value / 90)
+  rootStore.gridBelts2d[props.position.x][props.position.y]["rotate"] = rotateAngle.value / 90;
 };
 </script>
 

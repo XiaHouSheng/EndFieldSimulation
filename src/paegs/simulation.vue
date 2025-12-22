@@ -29,7 +29,7 @@
           @change="rootStore.handleBeltModeChange"
         >
           <el-radio-button label="单带" value="belt_one" />
-          <el-radio-button label="多带" value="belt" /> 
+          <el-radio-button label="多带" value="belt" />
           <el-radio-button label="框选" value="select" />
           <el-radio-button label="无" value="default" />
         </el-radio-group>
@@ -38,10 +38,12 @@
           v-model="rootStore.beltSelect"
           size="splitter"
           :disabled="rootStore.toolbarMode != 'belt_one'"
+          style="overflow-x: auto;flex-wrap: nowrap;overflow-y: hidden;"
         >
+          <el-radio-button label="转弯带" value="turn" />
+          <el-radio-button label="带" value="belt" />
           <el-radio-button label="一分三" value="splitter" />
           <el-radio-button label="三合一" value="conveyer" />
-          <el-radio-button label="转弯带" value="turn" />
           <el-radio-button label="桥" value="cross" />
         </el-radio-group>
       </div>
@@ -215,11 +217,10 @@ onMounted(async () => {
     const gsId = `${rootId}_${Date.now()}_${Math.floor(Math.random() * 1000)}`; // 生成唯一 id
     elConfig.id = gsId;
     cloneNode.setAttribute("data-gs-widget", JSON.stringify(elConfig)); // 写回配置
-    rootStore.gridWidgets[gsId] = cloneNode; // 存入 store
-    rootStore.gridWidgetsRotate[gsId] = 0; // 将旋转属性存入Store
+    rootStore.gridWidgets[gsId] = {element:cloneNode,rotate:0,recipe:""}; // 存入 store
     const vnode = createVNode(machineComponentMap[rootId], {
       gs_id: gsId,
-      el_name: machineNameMap[rootId],
+      el_name: rootId,
       el_size: elConfig,
     }); // 组件渲染
     vnode.appContext = appContext;

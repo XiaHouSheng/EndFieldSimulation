@@ -5,17 +5,13 @@ import ConveyerBelt from "../components/simulation/ConveyerBelt.vue";
 
 export const useRootStore = defineStore("sheng-root-store", {
   state: () => ({
+    isRecipeChoose: false,
     toolbarMode: "default",
     toolbarModeHistory: "default",
     beltSelect: "turn",
 
-    gridWidgets: {}, //用于非传送带模拟控件的存储|id->element
-    gridWidgets2d: null, //用于模拟控件的存储（适用于1x1的传送带等)|x,y->element
-    
-    gridWidgetsRotate: {}, //用于非传送带模拟控件的旋转属性存储|id->rotate
-    
-    gridBeltsRotate: {}, //存储传送带的旋转属性|id->rotate
-    
+    gridWidgets: {}, //用于非传送带模拟控件的存储|id->{element:el,rotate:rotate,recipe:recipe}
+    gridBelts2d: null, //存储传送带的元素|x,y->{element:el,rotate:rotate}
 
     rootGrid: null, //存储根gridstack对象
     rootGridEngine: null, //gridstack引擎
@@ -25,6 +21,7 @@ export const useRootStore = defineStore("sheng-root-store", {
     defaultHeight: 1578,
     defaultMaxWidth: 3017,
     numColumn: 72, //列个数
+
     gridOptions: {
       minRow: 72, //行个数
       allowNewRow: false, //可向下扩充行
@@ -40,7 +37,7 @@ export const useRootStore = defineStore("sheng-root-store", {
 
   actions: {
     initGrid(target_el, target_cont) {
-      this.initGridWidget2d();
+      this.initBelts2d();
       this.gridEl = markRaw(target_el);
       this.gridElCont = markRaw(target_cont);
       this.rootGrid = markRaw(GridStack.init(this.gridOptions, target_el));
@@ -49,9 +46,9 @@ export const useRootStore = defineStore("sheng-root-store", {
       this.gridEl.style.height = `${this.defaultHeight}px`;
     },
 
-    initGridWidget2d() {
-      this.gridWidgets2d = Array.from({ length: this.gridOptions.minRow }, () =>
-        Array.from({ length: this.numColumn }, () => null)
+    initBelts2d() {
+      this.gridBelts2d = Array.from({ length: this.gridOptions.minRow }, () =>
+        Array.from({ length: this.numColumn }, () => ({}))
       );
     },
 
@@ -69,11 +66,11 @@ export const useRootStore = defineStore("sheng-root-store", {
 
     //删除单个传送带
     deleteOneBelt(position) {
-      const targetElement = this.gridWidgets2d[position.x][position.y];
+      const targetElement = this.gridBelts2d[position.x][position.y]["element"];
       if (targetElement) {
         //待定
         this.rootGrid.removeWidget(targetElement);
-        this.gridWidgets2d[position.x][position.y] = null;
+        this.gridBelts2d[position.x][position.y] = {};
       }
     },
 
@@ -118,7 +115,7 @@ export const useRootStore = defineStore("sheng-root-store", {
       event.preventDefault();
       event.stopPropagation();
       //select模式时禁用滑动
-      if (this.toolbarMode == "select") {
+      if (this.toolbarMode == "select" || this.isRecipeChoose) {
         return;
       }
       let deltaPlus = event.deltaY * 5;
@@ -151,12 +148,12 @@ export const useRootStore = defineStore("sheng-root-store", {
 
     //已经计算scroll
     getPositionFromClick(event) {
-      let clientX = event.clientX + this.gridElCont.scrollLeft - 26; //offset
-      let clientY = event.clientY + this.gridElCont.scrollTop - 76; //offset
+      let clientX = event.clientX + this.gridElCont.scrollLeft 
+      let clientY = event.clientY + this.gridElCont.scrollTop
       return this.rootGrid.getCellFromPixel({
         left: clientX,
         top: clientY,
-      });
+      },true);
     },
 
     isCellEmpty(event) {
@@ -250,7 +247,12 @@ export const useRootStore = defineStore("sheng-root-store", {
       if (this.toolbarMode == "belt_one") {
         if (this.isCellEmpty(event)) {
           const position = this.getPositionFromClick(event);
-          this.generateOneBelt(position, `${this.beltSelect}-img`,0,this.beltSelect)
+          this.generateOneBelt(
+            position,
+            `${this.beltSelect}-img`,
+            0,
+            this.beltSelect
+          );
         }
       }
     },
@@ -258,11 +260,12 @@ export const useRootStore = defineStore("sheng-root-store", {
     //生成一个传送带
     generateOneBelt(position, type = "belt-img", rotate = 0, id_in = "belt") {
       let craftElement = document.createElement("div");
-      let id = `${id_in}_${Date.now()}_${Math.floor(Math.random() * 1000)}`
+      let id = `${id_in}_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
       let vnode = createVNode(ConveyerBelt, {
         gs_id: id,
         rotate: rotate,
         type: type,
+        position: position,
       });
       render(vnode, craftElement);
       craftElement = this.rootGrid.makeWidget(craftElement, {
@@ -276,15 +279,16 @@ export const useRootStore = defineStore("sheng-root-store", {
         id: id,
       });
       this.rootGrid.movable(craftElement, false);
-      this.gridWidgets2d[position.x][position.y] = craftElement;
-
+      this.gridBelts2d[position.x][position.y]["element"] = craftElement;
+      this.gridBelts2d[position.x][position.y]["rotate"] = rotate;
+      this.gridBelts2d[position.x][position.y]["type"] = type;
     },
 
     replaceNodeAtPosition(position, { type, rotate }, id = "belt") {
-      const el = this.gridWidgets2d[position.x]?.[position.y];
+      const el = this.gridBelts2d[position.x]?.[position.y]["element"];
       if (!el) return;
       this.rootGrid.removeWidget(el, true);
-      this.gridWidgets2d[position.x][position.y] = null;
+      this.gridBelts2d[position.x][position.y] = {};
       this.generateOneBelt(position, type, rotate, id);
     },
 
@@ -306,7 +310,7 @@ export const useRootStore = defineStore("sheng-root-store", {
 
         "3-0": 2, // 上 → 右
         "3-2": 3,
-        
+
         "2-3": 1,
         "2-1": 2,
       };

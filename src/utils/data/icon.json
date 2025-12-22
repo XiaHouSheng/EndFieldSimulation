@@ -1,0 +1,652 @@
+{
+  "missing-icon": {
+    "id": "missing-icon",
+    "position": "0px 0px",
+    "color": "#f4f6f6"
+  },
+  "belt": {
+    "id": "belt",
+    "position": "-64px 0px",
+    "color": "#da9269"
+  },
+  "pipe": {
+    "id": "pipe",
+    "position": "-128px 0px",
+    "color": "#7ca8c0"
+  },
+  "carbon_enr_powder": {
+    "id": "carbon_enr_powder",
+    "position": "-192px 0px",
+    "color": "#484848"
+  },
+  "carbon_enr": {
+    "id": "carbon_enr",
+    "position": "-256px 0px",
+    "color": "#484b53"
+  },
+  "carbon_mtl": {
+    "id": "carbon_mtl",
+    "position": "-320px 0px",
+    "color": "#3e4048"
+  },
+  "carbon_powder": {
+    "id": "carbon_powder",
+    "position": "-384px 0px",
+    "color": "#4c4c4c"
+  },
+  "crystal_enr_powder": {
+    "id": "crystal_enr_powder",
+    "position": "-448px 0px",
+    "color": "#9e6439"
+  },
+  "crystal_enr": {
+    "id": "crystal_enr",
+    "position": "-512px 0px",
+    "color": "#746937"
+  },
+  "crystal_powder": {
+    "id": "crystal_powder",
+    "position": "-576px 0px",
+    "color": "#6c431e"
+  },
+  "crystal_shell": {
+    "id": "crystal_shell",
+    "position": "-640px 0px",
+    "color": "#947543"
+  },
+  "glass_bottle": {
+    "id": "glass_bottle",
+    "position": "-704px 0px",
+    "color": "#5c4c7d"
+  },
+  "glass_cmpt": {
+    "id": "glass_cmpt",
+    "position": "0px -64px",
+    "color": "#9294a1"
+  },
+  "glass_enr_bottle": {
+    "id": "glass_enr_bottle",
+    "position": "-64px -64px",
+    "color": "#76758f"
+  },
+  "glass_enr_cmpt": {
+    "id": "glass_enr_cmpt",
+    "position": "-128px -64px",
+    "color": "#969199"
+  },
+  "iron_bottle": {
+    "id": "iron_bottle",
+    "position": "-192px -64px",
+    "color": "#3b597b"
+  },
+  "iron_cmpt": {
+    "id": "iron_cmpt",
+    "position": "-256px -64px",
+    "color": "#6e81a9"
+  },
+  "iron_enr_bottle": {
+    "id": "iron_enr_bottle",
+    "position": "-320px -64px",
+    "color": "#5b6d83"
+  },
+  "iron_enr_cmpt": {
+    "id": "iron_enr_cmpt",
+    "position": "-384px -64px",
+    "color": "#5e748d"
+  },
+  "iron_enr_powder": {
+    "id": "iron_enr_powder",
+    "position": "-448px -64px",
+    "color": "#5b7e97"
+  },
+  "iron_enr": {
+    "id": "iron_enr",
+    "position": "-512px -64px",
+    "color": "#56829c"
+  },
+  "iron_nugget": {
+    "id": "iron_nugget",
+    "position": "-576px -64px",
+    "color": "#618095"
+  },
+  "iron_ore": {
+    "id": "iron_ore",
+    "position": "-640px -64px",
+    "color": "#59708d"
+  },
+  "iron_powder": {
+    "id": "iron_powder",
+    "position": "-704px -64px",
+    "color": "#36526a"
+  },
+  "liquid_plant_grass_1": {
+    "id": "liquid_plant_grass_1",
+    "position": "0px -128px",
+    "color": "#e4f6e3"
+  },
+  "liquid_plant_grass_2": {
+    "id": "liquid_plant_grass_2",
+    "position": "-64px -128px",
+    "color": "#c2ed7c"
+  },
+  "liquid_water": {
+    "id": "liquid_water",
+    "position": "-128px -128px",
+    "color": "#5ae5f9"
+  },
+  "liquid_xiranite": {
+    "id": "liquid_xiranite",
+    "position": "-192px -128px",
+    "color": "#467866"
+  },
+  "originium_enr_powder": {
+    "id": "originium_enr_powder",
+    "position": "-256px -128px",
+    "color": "#76532f"
+  },
+  "originium_ore": {
+    "id": "originium_ore",
+    "position": "-320px -128px",
+    "color": "#805f3c"
+  },
+  "originium_powder": {
+    "id": "originium_powder",
+    "position": "-384px -128px",
+    "color": "#4d3c2b"
+  },
+  "plant_bbflower_1": {
+    "id": "plant_bbflower_1",
+    "position": "-448px -128px",
+    "color": "#635c3e"
+  },
+  "plant_bbflower_powder_1": {
+    "id": "plant_bbflower_powder_1",
+    "position": "-512px -128px",
+    "color": "#7c7436"
+  },
+  "plant_bbflower_seed_1": {
+    "id": "plant_bbflower_seed_1",
+    "position": "-576px -128px",
+    "color": "#aca368"
+  },
+  "plant_grass_1": {
+    "id": "plant_grass_1",
+    "position": "-640px -128px",
+    "color": "#7a8462"
+  },
+  "plant_grass_2": {
+    "id": "plant_grass_2",
+    "position": "-704px -128px",
+    "color": "#5c5f4b"
+  },
+  "plant_grass_powder_1": {
+    "id": "plant_grass_powder_1",
+    "position": "0px -192px",
+    "color": "#babca0"
+  },
+  "plant_grass_powder_2": {
+    "id": "plant_grass_powder_2",
+    "position": "-64px -192px",
+    "color": "#b3907a"
+  },
+  "plant_grass_seed_1": {
+    "id": "plant_grass_seed_1",
+    "position": "-128px -192px",
+    "color": "#979e75"
+  },
+  "plant_grass_seed_2": {
+    "id": "plant_grass_seed_2",
+    "position": "-192px -192px",
+    "color": "#9e7f6a"
+  },
+  "plant_moss_1": {
+    "id": "plant_moss_1",
+    "position": "-256px -192px",
+    "color": "#605926"
+  },
+  "plant_moss_2": {
+    "id": "plant_moss_2",
+    "position": "-320px -192px",
+    "color": "#65681f"
+  },
+  "plant_moss_3": {
+    "id": "plant_moss_3",
+    "position": "-384px -192px",
+    "color": "#917729"
+  },
+  "plant_moss_enr_powder_1": {
+    "id": "plant_moss_enr_powder_1",
+    "position": "-448px -192px",
+    "color": "#896361"
+  },
+  "plant_moss_enr_powder_2": {
+    "id": "plant_moss_enr_powder_2",
+    "position": "-512px -192px",
+    "color": "#90845b"
+  },
+  "plant_moss_powder_1": {
+    "id": "plant_moss_powder_1",
+    "position": "-576px -192px",
+    "color": "#ad6c66"
+  },
+  "plant_moss_powder_2": {
+    "id": "plant_moss_powder_2",
+    "position": "-640px -192px",
+    "color": "#d5c274"
+  },
+  "plant_moss_powder_3": {
+    "id": "plant_moss_powder_3",
+    "position": "-704px -192px",
+    "color": "#9c7008"
+  },
+  "plant_moss_seed_1": {
+    "id": "plant_moss_seed_1",
+    "position": "0px -256px",
+    "color": "#9e6244"
+  },
+  "plant_moss_seed_2": {
+    "id": "plant_moss_seed_2",
+    "position": "-64px -256px",
+    "color": "#928029"
+  },
+  "plant_moss_seed_3": {
+    "id": "plant_moss_seed_3",
+    "position": "-128px -256px",
+    "color": "#856812"
+  },
+  "quartz_enr_powder": {
+    "id": "quartz_enr_powder",
+    "position": "-192px -256px",
+    "color": "#b1afc1"
+  },
+  "quartz_enr": {
+    "id": "quartz_enr",
+    "position": "-256px -256px",
+    "color": "#9998a5"
+  },
+  "quartz_glass": {
+    "id": "quartz_glass",
+    "position": "-320px -256px",
+    "color": "#715f92"
+  },
+  "quartz_powder": {
+    "id": "quartz_powder",
+    "position": "-384px -256px",
+    "color": "#62507b"
+  },
+  "quartz_sand": {
+    "id": "quartz_sand",
+    "position": "-448px -256px",
+    "color": "#5d486c"
+  },
+  "xiranite_powder": {
+    "id": "xiranite_powder",
+    "position": "-512px -256px",
+    "color": "#335246"
+  },
+  "bottled_food_1": {
+    "id": "bottled_food_1",
+    "position": "-576px -256px",
+    "color": "#7f847c"
+  },
+  "bottled_food_2": {
+    "id": "bottled_food_2",
+    "position": "-640px -256px",
+    "color": "#878c69"
+  },
+  "bottled_food_3": {
+    "id": "bottled_food_3",
+    "position": "-704px -256px",
+    "color": "#838882"
+  },
+  "bottled_food_4": {
+    "id": "bottled_food_4",
+    "position": "0px -320px",
+    "color": "#526d71"
+  },
+  "bottled_rec_hp_1": {
+    "id": "bottled_rec_hp_1",
+    "position": "-64px -320px",
+    "color": "#b39497"
+  },
+  "bottled_rec_hp_2": {
+    "id": "bottled_rec_hp_2",
+    "position": "-128px -320px",
+    "color": "#bca2a2"
+  },
+  "bottled_rec_hp_3": {
+    "id": "bottled_rec_hp_3",
+    "position": "-192px -320px",
+    "color": "#b5959c"
+  },
+  "bottled_rec_hp_4": {
+    "id": "bottled_rec_hp_4",
+    "position": "-256px -320px",
+    "color": "#a69690"
+  },
+  "equip_script_1": {
+    "id": "equip_script_1",
+    "position": "-320px -320px",
+    "color": "#a2a0b0"
+  },
+  "equip_script_2": {
+    "id": "equip_script_2",
+    "position": "-384px -320px",
+    "color": "#8898bf"
+  },
+  "equip_script_3": {
+    "id": "equip_script_3",
+    "position": "-448px -320px",
+    "color": "#a2a4b0"
+  },
+  "equip_script_4": {
+    "id": "equip_script_4",
+    "position": "-512px -320px",
+    "color": "#5d5644"
+  },
+  "product": {
+    "id": "product",
+    "position": "-576px -320px",
+    "color": "#967d7a"
+  },
+  "proc_battery_1": {
+    "id": "proc_battery_1",
+    "position": "-640px -320px",
+    "color": "#9e9f99"
+  },
+  "proc_battery_2": {
+    "id": "proc_battery_2",
+    "position": "-704px -320px",
+    "color": "#9c999d"
+  },
+  "proc_battery_3": {
+    "id": "proc_battery_3",
+    "position": "0px -384px",
+    "color": "#9e999c"
+  },
+  "proc_battery_4": {
+    "id": "proc_battery_4",
+    "position": "-64px -384px",
+    "color": "#6a8872"
+  },
+  "proc_bomb_1": {
+    "id": "proc_bomb_1",
+    "position": "-128px -384px",
+    "color": "#8c7e7a"
+  },
+  "jinlong_coupon": {
+    "id": "jinlong_coupon",
+    "position": "-192px -384px",
+    "color": "#8ca0a0"
+  },
+  "tundra_coupon": {
+    "id": "tundra_coupon",
+    "position": "-256px -384px",
+    "color": "#c5c8b4"
+  },
+  "jinlong": {
+    "id": "jinlong",
+    "position": "-320px -384px",
+    "color": "#7f9b97"
+  },
+  "tundra": {
+    "id": "tundra",
+    "position": "-384px -384px",
+    "color": "#9caa7b"
+  },
+  "cmpt_mc_1": {
+    "id": "cmpt_mc_1",
+    "position": "-448px -384px",
+    "color": "#848580"
+  },
+  "dismantler_1": {
+    "id": "dismantler_1",
+    "position": "-512px -384px",
+    "color": "#98988e"
+  },
+  "filling_pd_mc_1": {
+    "id": "filling_pd_mc_1",
+    "position": "-576px -384px",
+    "color": "#808183"
+  },
+  "furnance_1": {
+    "id": "furnance_1",
+    "position": "-640px -384px",
+    "color": "#aa9f99"
+  },
+  "grinder_1": {
+    "id": "grinder_1",
+    "position": "-704px -384px",
+    "color": "#939799"
+  },
+  "miner_2": {
+    "id": "miner_2",
+    "position": "0px -448px",
+    "color": "#868785"
+  },
+  "miner_3": {
+    "id": "miner_3",
+    "position": "-64px -448px",
+    "color": "#918a89"
+  },
+  "mix_pool_1": {
+    "id": "mix_pool_1",
+    "position": "-128px -448px",
+    "color": "#898b8d"
+  },
+  "planter_1": {
+    "id": "planter_1",
+    "position": "-192px -448px",
+    "color": "#7c827f"
+  },
+  "power_sta_1": {
+    "id": "power_sta_1",
+    "position": "-256px -448px",
+    "color": "#939da1"
+  },
+  "pump_1": {
+    "id": "pump_1",
+    "position": "-320px -448px",
+    "color": "#8f8d87"
+  },
+  "seedcol_1": {
+    "id": "seedcol_1",
+    "position": "-384px -448px",
+    "color": "#757c76"
+  },
+  "shaper_1": {
+    "id": "shaper_1",
+    "position": "-448px -448px",
+    "color": "#919291"
+  },
+  "thickener_1": {
+    "id": "thickener_1",
+    "position": "-512px -448px",
+    "color": "#898a8a"
+  },
+  "tools_asm_mc_1": {
+    "id": "tools_asm_mc_1",
+    "position": "-576px -448px",
+    "color": "#868888"
+  },
+  "winder_1": {
+    "id": "winder_1",
+    "position": "-640px -448px",
+    "color": "#979593"
+  },
+  "xiranite_oven_1": {
+    "id": "xiranite_oven_1",
+    "position": "-704px -448px",
+    "color": "#a2a79a"
+  },
+  "carbon_mtl-plant_grass_1": {
+    "id": "carbon_mtl-plant_grass_1",
+    "position": "0px -512px",
+    "color": "#4c504d"
+  },
+  "carbon_mtl-plant_grass_2": {
+    "id": "carbon_mtl-plant_grass_2",
+    "position": "-64px -512px",
+    "color": "#444749"
+  },
+  "carbon_mtl-plant_moss_1": {
+    "id": "carbon_mtl-plant_moss_1",
+    "position": "-128px -512px",
+    "color": "#484743"
+  },
+  "carbon_mtl-plant_moss_2": {
+    "id": "carbon_mtl-plant_moss_2",
+    "position": "-192px -512px",
+    "color": "#4a4c42"
+  },
+  "carbon_mtl-plant_moss_3": {
+    "id": "carbon_mtl-plant_moss_3",
+    "position": "-256px -512px",
+    "color": "#585044"
+  },
+  "crystal_enr_powder-crystal_powder": {
+    "id": "crystal_enr_powder-crystal_powder",
+    "position": "-320px -512px",
+    "color": "#9b6237"
+  },
+  "crystal_enr_powder-originium_enr_powder": {
+    "id": "crystal_enr_powder-originium_enr_powder",
+    "position": "-384px -512px",
+    "color": "#9c653a"
+  },
+  "dismantler_1-liquid_plant_grass_1": {
+    "id": "dismantler_1-liquid_plant_grass_1",
+    "position": "-448px -512px",
+    "color": "#a1a498"
+  },
+  "dismantler_1-liquid_plant_grass_2": {
+    "id": "dismantler_1-liquid_plant_grass_2",
+    "position": "-512px -512px",
+    "color": "#9ba289"
+  },
+  "iron_bottle-liquid_plant_grass_1": {
+    "id": "iron_bottle-liquid_plant_grass_1",
+    "position": "-576px -512px",
+    "color": "#7b909a"
+  },
+  "iron_bottle-liquid_plant_grass_2": {
+    "id": "iron_bottle-liquid_plant_grass_2",
+    "position": "-640px -512px",
+    "color": "#6c8c7a"
+  },
+  "iron_bottle-liquid_water": {
+    "id": "iron_bottle-liquid_water",
+    "position": "-704px -512px",
+    "color": "#44869e"
+  },
+  "jinlong_coupon-bottled_rec_hp_4": {
+    "id": "jinlong_coupon-bottled_rec_hp_4",
+    "position": "0px -576px",
+    "color": "#96a09f"
+  },
+  "jinlong_coupon-proc_battery_4": {
+    "id": "jinlong_coupon-proc_battery_4",
+    "position": "-64px -576px",
+    "color": "#8d9f9c"
+  },
+  "jinlong_coupon-xiranite_powder": {
+    "id": "jinlong_coupon-xiranite_powder",
+    "position": "-128px -576px",
+    "color": "#869897"
+  },
+  "power_sta_1-originium_ore": {
+    "id": "power_sta_1-originium_ore",
+    "position": "-192px -576px",
+    "color": "#929595"
+  },
+  "power_sta_1-proc_battery_1": {
+    "id": "power_sta_1-proc_battery_1",
+    "position": "-256px -576px",
+    "color": "#99a1a4"
+  },
+  "power_sta_1-proc_battery_2": {
+    "id": "power_sta_1-proc_battery_2",
+    "position": "-320px -576px",
+    "color": "#98a0a5"
+  },
+  "power_sta_1-proc_battery_3": {
+    "id": "power_sta_1-proc_battery_3",
+    "position": "-384px -576px",
+    "color": "#98a0a4"
+  },
+  "power_sta_1-proc_battery_4": {
+    "id": "power_sta_1-proc_battery_4",
+    "position": "-448px -576px",
+    "color": "#919d9f"
+  },
+  "tundra_coupon-bottled_food_1": {
+    "id": "tundra_coupon-bottled_food_1",
+    "position": "-512px -576px",
+    "color": "#bcbfac"
+  },
+  "tundra_coupon-bottled_food_2": {
+    "id": "tundra_coupon-bottled_food_2",
+    "position": "-576px -576px",
+    "color": "#bcbfa7"
+  },
+  "tundra_coupon-bottled_food_3": {
+    "id": "tundra_coupon-bottled_food_3",
+    "position": "-640px -576px",
+    "color": "#b6b9a9"
+  },
+  "tundra_coupon-bottled_rec_hp_1": {
+    "id": "tundra_coupon-bottled_rec_hp_1",
+    "position": "-704px -576px",
+    "color": "#c5c1b2"
+  },
+  "tundra_coupon-bottled_rec_hp_2": {
+    "id": "tundra_coupon-bottled_rec_hp_2",
+    "position": "0px -640px",
+    "color": "#c8c3b4"
+  },
+  "tundra_coupon-bottled_rec_hp_3": {
+    "id": "tundra_coupon-bottled_rec_hp_3",
+    "position": "-64px -640px",
+    "color": "#c3bbaf"
+  },
+  "tundra_coupon-crystal_shell": {
+    "id": "tundra_coupon-crystal_shell",
+    "position": "-128px -640px",
+    "color": "#bdb9a2"
+  },
+  "tundra_coupon-glass_bottle": {
+    "id": "tundra_coupon-glass_bottle",
+    "position": "-192px -640px",
+    "color": "#b7b8aa"
+  },
+  "tundra_coupon-glass_cmpt": {
+    "id": "tundra_coupon-glass_cmpt",
+    "position": "-256px -640px",
+    "color": "#bec1b5"
+  },
+  "tundra_coupon-iron_cmpt": {
+    "id": "tundra_coupon-iron_cmpt",
+    "position": "-320px -640px",
+    "color": "#b8bdb7"
+  },
+  "tundra_coupon-iron_enr_cmpt": {
+    "id": "tundra_coupon-iron_enr_cmpt",
+    "position": "-384px -640px",
+    "color": "#b6bbb0"
+  },
+  "tundra_coupon-proc_battery_1": {
+    "id": "tundra_coupon-proc_battery_1",
+    "position": "-448px -640px",
+    "color": "#bfc1af"
+  },
+  "tundra_coupon-proc_battery_2": {
+    "id": "tundra_coupon-proc_battery_2",
+    "position": "-512px -640px",
+    "color": "#bec0b0"
+  },
+  "tundra_coupon-proc_battery_3": {
+    "id": "tundra_coupon-proc_battery_3",
+    "position": "-576px -640px",
+    "color": "#bfc0af"
+  }
+}
