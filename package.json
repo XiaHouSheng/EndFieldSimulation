@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.2",
+    "@vueuse/core": "^14.1.0",
     "element-plus": "^2.11.9",
     "gridstack": "^12.3.3",
     "gridstack-vue": "^0.0.1",

@@ -1,5 +1,6 @@
 <script setup>
 import RootMachineCuboid from './RootMachineCuboid.vue';
+import RootSpecificContainer from './RootSpecificContainer.vue';
 const props = defineProps({
   gs_id: {
     required: true,
@@ -16,11 +17,12 @@ const props = defineProps({
 </script>
 
 <template>
-  <RootMachineCuboid
+  <RootSpecificContainer
     :gs_id="props.gs_id"
     :el_name="props.el_name"
     :el_size="props.el_size"
-  ></RootMachineCuboid>
+    :is_deposit="true"
+  ></RootSpecificContainer>
 </template>
 
 <style scoped></style>

@@ -4,22 +4,14 @@ import { machineDataFileMap, machineNameMap } from "../../utils/MachineMap";
 import { RecipeData } from "../../utils/DataMap";
 import { useRootStore } from "../../stores/SimStore";
 import { computed } from "vue";
-const props = defineProps({
-  gs_id: {
-    type: String,
-    default: "refineryFurnace_123_123",
-  },
-});
-const rootStore = useRootStore();
-const chooseRecipe = computed(() => rootStore.gridWidgets[props.gs_id].recipe);
 
-const machineId = props.gs_id.split("_")[0];
-const machineFileId = machineDataFileMap[machineId];
-const recipes = Object.values(RecipeData[machineFileId]);
-
+const rootStore = useRootStore(); 
+const chooseRecipe = computed(() => rootStore.gridWidgets[rootStore.recipeChooseId].recipe);
+const machineId = computed(()=>rootStore.recipeChooseId.split("_")[0])
+const machineFileId = computed(()=>machineDataFileMap[machineId.value])
+const recipes = computed(()=>Object.values(RecipeData[machineFileId.value]))
 function handleRecipeSelect(targetId) {
-  rootStore.gridWidgets[props.gs_id].recipe = targetId;
-  
+  rootStore.gridWidgets[rootStore.recipeChooseId].recipe = targetId;
 }
 </script>
 
@@ -28,7 +20,6 @@ function handleRecipeSelect(targetId) {
     <div class="display-flex flex-direation-col sheng-recipe-header">
       <h1>{{ machineNameMap[machineId] }} 当前配方</h1>
       <RecipeItem
-        :gs_id="props.gs_id"
         :target-id="chooseRecipe"
         :show-btn="false"
       ></RecipeItem>
@@ -37,7 +28,6 @@ function handleRecipeSelect(targetId) {
     <div class="sheng-recipe-grid">
       <RecipeItem
         v-for="value of recipes"
-        :gs_id="props.gs_id"
         :target-id="value.id"
         @handle-recipe-select="handleRecipeSelect"
       ></RecipeItem>

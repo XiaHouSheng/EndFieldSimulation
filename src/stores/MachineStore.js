@@ -10,30 +10,22 @@ export const useMachineStore = defineStore("sheng-machine-store", {
   actions: {
     //test
     test() {},
-    //Dialog关闭回调
-    handleDialogClose() {
-      this.rootStore.isRecipeChoose = false;
-      this.rootStore.rootGrid.enableMove(true);
+    //左键配方配置
+    handleDialog(event,gs_id) {
+      event.stopPropagation();
+      this.rootStore.recipeChooseId = gs_id;
+      this.rootStore.isRecipeChoose = true;
+      this.rootStore.rootGrid.enableMove(false);
     },
     //右键删除机器
     handleRightClick(event, gs_id) {
       event.preventDefault();
       event.stopPropagation();
       this.rootStore.rootGrid.removeWidget(
-        this.rootStore.gridWidgets[gs_id]["element"]
+        this.rootStore.gridWidgetElements[gs_id]
       );
+      delete this.rootStore.gridWidgetElements[gs_id];
       delete this.rootStore.gridWidgets[gs_id];
-    },
-    //进出口事件
-    handleBeltConnect(event, which, gs_id) {
-      event.stopPropagation();
-      return;
-      if (!this.rootStore.isBeltConnecting) {
-        //inner outter specific
-        this.rootStore.startBeltConnect(event, which, gs_id);
-      } else {
-        this.rootStore.compeleteBeltConnect();
-      }
     },
   },
 });

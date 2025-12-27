@@ -1,9 +1,8 @@
 <script setup>
-import { computed, nextTick, ref } from "vue";
+import { ref } from "vue";
 import { useMachineStore } from "../../stores/MachineStore";
 import { useRootStore } from "../../stores/SimStore";
 import { machineNameMap } from "../../utils/MachineMap";
-import { iconStyle } from "../../utils/DataMap";
 
 const rootStore = useRootStore();
 const machineStore = useMachineStore();
@@ -27,8 +26,6 @@ const hadnleRotate = () => {
   rotateAngle.value = ((rotateAngle.value / 90 + 1) % 4) * 90;
   rootStore.gridWidgets[props.gs_id]["rotate"] = rotateAngle.value / 90;
 };
-//配方配置对话框
-const targetItemId = computed(() => rootStore.gridWidgets[props.gs_id].recipe);
 </script>
 
 <template>
@@ -49,13 +46,6 @@ const targetItemId = computed(() => rootStore.gridWidgets[props.gs_id].recipe);
       :style="{ transform: `rotate(${-rotateAngle}deg)` }"
     >
       <el-text>{{ machineNameMap[props.el_name] }}</el-text>
-      <div class="display-flex flex-direation-row justify-content-center">
-        <div
-          class="recipe-icon"
-          @click="machineStore.handleDialog($event,props.gs_id)"
-          :style="targetItemId ? iconStyle(targetItemId, 35) : {}"
-        ></div>
-      </div>
     </div>
 
     <div

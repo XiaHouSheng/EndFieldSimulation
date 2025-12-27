@@ -1,11 +1,13 @@
 import recipeData from "./data/recipe.json" assert { type: "json" };
 import itemData from "./data/item.json" assert { type: "json" };
 import iconData from "./data/icon.json" assert { type: "json" };
+import matData from "./data/material.json" assert { type: "json" };
 import iconImage from "@/assets/img/icons.webp";
 
 export const RecipeData = recipeData;
 export const ItemData = itemData;
 export const IconData = iconData;
+export const MatData = matData;
 
 export function toSlot([itemId, count]) {
   const item = ItemData[itemId];
@@ -18,12 +20,14 @@ export function toSlot([itemId, count]) {
 
 export function iconStyle(iconId, cubeSize = 64) {
   const icon = IconData[iconId];
-
+  if (!icon) return {
+    border: "solid 1px"
+  };
   const BASE_SIZE = 64;
   const scale = cubeSize / BASE_SIZE;
 
   // 原始 position，例如 "-128px -64px"
-  const [x, y] = icon.position.split(' ').map(v => parseFloat(v));
+  const [x, y] = icon.position.split(" ").map((v) => parseFloat(v));
 
   return {
     backgroundImage: `url(${iconImage})`,

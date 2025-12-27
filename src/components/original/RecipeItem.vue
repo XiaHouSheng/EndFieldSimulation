@@ -2,13 +2,11 @@
 import { computed } from "vue";
 import { RecipeData, toSlot, iconStyle } from "../../utils/DataMap";
 import { machineDataFileMap } from "../../utils/MachineMap";
+import { useRootStore } from "../../stores/SimStore";
 const props = defineProps({
   showBtn: {
     type: Boolean,
     default: true,
-  },
-  gs_id: {
-    type: String,
   },
   targetId: {
     type: String,
@@ -48,15 +46,19 @@ const defaultRecipe = {
   out: {},
   name: "空配方",
 };
-
-const machineId = props.gs_id.split("_")[0];
-const machineFileId = machineDataFileMap[machineId];
+const rootStore = useRootStore();
+const machineId = computed(() => rootStore.recipeChooseId.split("_")[0]);
+const machineFileId = computed(() => machineDataFileMap[machineId.value]);
 
 const recipe = computed(() =>
-  props.targetId ? RecipeData[machineFileId][props.targetId] : defaultRecipe
+  props.targetId ? RecipeData[machineFileId.value][props.targetId] : defaultRecipe
 );
 
 const inputSlots = computed(() => {
+  console.log("machineId", machineId.value);
+  console.log("machineField", machineFileId.value);
+  console.log("targetId", props.targetId);
+  console.log("recipe", recipe.value);
   const entries = Object.entries(recipe.value.in);
   return [
     entries[0] ? toSlot(entries[0]) : null,
@@ -65,6 +67,8 @@ const inputSlots = computed(() => {
 });
 
 const outputSlots = computed(() => {
+  console.log(props.targetId);
+  console.log(recipe.value);
   const entries = Object.entries(recipe.value.out);
   return [
     entries[0] ? toSlot(entries[0]) : null,

@@ -13,23 +13,24 @@ import Grinder from '../components/simulation/Grinder.vue';
 import ProtocolStorageBox from '../components/simulation/ProtocolStorageBox.vue';
 import WarehouseDepositPort from '../components/simulation/WarehouseDepositPort.vue';
 import WarehouseWithdrawalPort from '../components/simulation/WarehouseWithdrawalPort.vue';
+import { markRaw } from 'vue';
 
 // 组件映射表：key 对应机器唯一标识（与之前的 gs_id 前缀一致），value 是组件对象
 export const machineComponentMap = {
-  conveyerbelt: ConveyerBelt,
-  refineryFurnace: RefineryFurnace,
-  crusher: Crusher,
-  accessoryMachine: AccessoryMachine,
-  shapingMachine: ShapingMachine,
-  seedHarvester: SeedHarvester,
-  planter: Planter,
-  equipmentComponentMachine: EquipmentComponentMachine,
-  fillingMachine: FillingMachine,
-  packagingMachine: PackagingMachine,
-  grinder: Grinder,
-  protocolStorageBox: ProtocolStorageBox,
-  warehouseDepositPort: WarehouseDepositPort,
-  warehouseWithdrawalPort: WarehouseWithdrawalPort,
+  conveyerbelt: markRaw(ConveyerBelt),
+  refineryFurnace: markRaw(RefineryFurnace),
+  crusher: markRaw(Crusher),
+  accessoryMachine: markRaw(AccessoryMachine),
+  shapingMachine: markRaw(ShapingMachine),
+  seedHarvester: markRaw(SeedHarvester),
+  planter: markRaw(Planter),
+  equipmentComponentMachine: markRaw(EquipmentComponentMachine),
+  fillingMachine: markRaw(FillingMachine),
+  packagingMachine: markRaw(PackagingMachine),
+  grinder: markRaw(Grinder),
+  protocolStorageBox: markRaw(ProtocolStorageBox),
+  warehouseDepositPort: markRaw(WarehouseDepositPort),
+  warehouseWithdrawalPort: markRaw(WarehouseWithdrawalPort),
 };
 
 export const machineDataFileMap = {
@@ -63,8 +64,8 @@ export const machineNameMap = {
   packagingMachine: '封装机',
   grinder: '研磨机',
   protocolStorageBox: '存储箱',
-  warehouseDepositPort: '仓库存货口',
-  warehouseWithdrawalPort: '仓库取货口',
+  warehouseDepositPort: '存货口',
+  warehouseWithdrawalPort: '取货口',
   // —— jinlong 专属 —— | 这里还没有做组件，后续直接生成
   dismantlerMachine: '拆解机',
   reactionPool: '反应池',

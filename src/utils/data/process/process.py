@@ -4,13 +4,14 @@ file = open("D:\\Xia_Project\\VUEProject\\EndfieldSimulation\\EndfieldSimulation
 jsonobj = json.load(file)
 file.close()
 
-output = {}
+output = []
 for item in jsonobj["items"]:
-    output[item["id"]] = item
+    if item["category"] == "material":
+        output.append(item)
 
 
-if False:
-    name = "recipes"
+if 1:
+    name = "material"
     outputFile = open("./{}.json".format(name),"w", encoding="utf-8")
     outputFile.write(json.dumps(output,ensure_ascii=False,indent=2))
 

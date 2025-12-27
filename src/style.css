@@ -1,8 +1,7 @@
 :root {
   --sheng-self-height: 740px;
   --sheng-self-simulation-grid-height: 740px;
-  --sheng-self-simulation-list-head-height: 70px;
-  --sheng-self-simulation-list-height: 670px;
+  --sheng-self-simulation-list-height: 740px;
 }
 
 body {
@@ -79,6 +78,10 @@ body {
 
 .position-relative {
   position: relative;
+}
+
+.position-absolute {
+  position: absolute;
 }
 
 .sim-inner-btn {

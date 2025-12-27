@@ -4,7 +4,8 @@ import { useRootStore } from "../../stores/SimStore";
 import { useMachineStore } from "../../stores/MachineStore";
 import { machineNameMap } from "../../utils/MachineMap";
 import { iconStyle } from "../../utils/DataMap";
-import RecipeList from "../original/RecipeDialog.vue";
+import RecipeList from "../original/RecipeContent.vue";
+
 const rootStore = useRootStore();
 const machineStore = useMachineStore();
 const props = defineProps({
@@ -33,7 +34,8 @@ const childContOuter = ref(null);
 const rotateGridEl = (index) => {
   rootStore.gridWidgets[props.gs_id]["rotate"] = index;
   if (index % 2 == 0) {
-    rootStore.rootGrid.update(rootStore.gridWidgets[props.gs_id]["element"], {
+    console.log(props.el_size)
+    rootStore.rootGrid.update(rootStore.gridWidgetElements[props.gs_id], {
       w: props.el_size.h,
       h: props.el_size.w,
     });
@@ -49,7 +51,7 @@ const rotateGridEl = (index) => {
     childContOuter.value.style["width"] = "15px";
     childContOuter.value.style["height"] = "auto";
   } else {
-    rootStore.rootGrid.update(rootStore.gridWidgets[props.gs_id]["element"], {
+    rootStore.rootGrid.update(rootStore.gridWidgetElements[props.gs_id], {
       w: props.el_size.w,
       h: props.el_size.h,
     });
@@ -72,17 +74,14 @@ const hadnleRotate = () => {
 };
 //配方配置对话框
 const targetItemId = computed(() => rootStore.gridWidgets[props.gs_id].recipe);
-const dialogVisible = ref(false);
-const handleDialog = (event) => {
-  event.stopPropagation();
-  dialogVisible.value = true;
-  rootStore.isRecipeChoose = true;
-};
-
 </script>
-
 <template>
-  <el-dialog v-model="dialogVisible" width="50%" @close="machineStore.handleDialogClose">
+  <el-dialog
+    v-model="dialogVisible"
+    width="50%"
+    @close="machineStore.handleDialogClose"
+    :append-to-body="true"
+  >
     <div style="height: 60%">
       <RecipeList :gs_id="props.gs_id"></RecipeList>
     </div>
@@ -112,7 +111,7 @@ const handleDialog = (event) => {
       <div class="display-flex flex-direation-row justify-content-center">
         <div
           class="recipe-icon"
-          @click="handleDialog"
+          @click="machineStore.handleDialog($event, props.gs_id)"
           :style="targetItemId ? iconStyle(targetItemId, 35) : {}"
         ></div>
       </div>

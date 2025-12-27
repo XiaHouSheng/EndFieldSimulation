@@ -1,4 +1,5 @@
 <template>
+
   <el-popconfirm
     title="确认删除当前框选的所有传送带？"
     :visible="selectStore.showSelectMenu"
@@ -17,36 +18,20 @@
       ></div>
     </template>
   </el-popconfirm>
+
+  <el-dialog
+    v-model="rootStore.isRecipeChoose"
+    width="50%"
+    @close="rootStore.handleDialogRecipeClose"
+    :append-to-body="true"
+  >
+    <div style="height: 60%">
+      <RecipeContent></RecipeContent>
+    </div>
+  </el-dialog>
+
   <el-row :gutter="6" class="container">
     <el-col :span="4">
-      <div
-        class="sheng-cont-tool-bar max-width sheng-test-border display-flex flex-direation-col justify-content-center"
-      >
-        <el-radio-group
-          class="sheng-radio-group-full"
-          v-model="rootStore.toolbarMode"
-          size="default"
-          @change="rootStore.handleBeltModeChange"
-        >
-          <el-radio-button label="单带" value="belt_one" />
-          <el-radio-button label="多带" value="belt" />
-          <el-radio-button label="框选" value="select" />
-          <el-radio-button label="无" value="default" />
-        </el-radio-group>
-
-        <el-radio-group
-          v-model="rootStore.beltSelect"
-          size="splitter"
-          :disabled="rootStore.toolbarMode != 'belt_one'"
-          style="overflow-x: auto;flex-wrap: nowrap;overflow-y: hidden;"
-        >
-          <el-radio-button label="转弯带" value="turn" />
-          <el-radio-button label="带" value="belt" />
-          <el-radio-button label="一分三" value="splitter" />
-          <el-radio-button label="三合一" value="conveyer" />
-          <el-radio-button label="桥" value="cross" />
-        </el-radio-group>
-      </div>
       <div class="sheng-cont-list sidebar sheng-test-border">
         <!--data-gs-widget后续直接生成，目前便于测试先这么整-->
         <!--data-gs-widget也可以用于传递参数，如inner与outer数量等-->
@@ -148,7 +133,7 @@
           class="sheng-cont-item sidebar-item sheng-test-border display-flex flex-direation-row"
         >
           <div class="grid-stack-content"></div>
-          <el-text class="list-span">仓库存货口</el-text>
+          <el-text class="list-span">存货口</el-text>
         </div>
 
         <div
@@ -156,21 +141,102 @@
           class="sheng-cont-item sidebar-item sheng-test-border display-flex flex-direation-row"
         >
           <div class="grid-stack-content"></div>
-          <el-text class="list-span">仓库取货口</el-text>
+          <el-text class="list-span">取货口</el-text>
         </div>
       </div>
     </el-col>
-    <el-col :span="20">
+    <el-col :span="20" style="position: relative">
+      <div
+        class="display-flex flex-direation-row justify-content-center sheng-tool-bar-cont"
+      >
+        <div class="sheng-tool-bar display-flex flex-direaiton-row">
+          <el-radio-group
+            v-model="rootStore.toolbarMode"
+            size="default"
+            @change="rootStore.handleBeltModeChange"
+          >
+            <el-radio-button label="多带" value="belts" />
+            <el-radio-button label="框选" value="select" />
+            <el-radio-button label="无" value="default" />
+          </el-radio-group>
+
+          <el-radio-group v-model="rootStore.toolbarMode" size="default">
+            <el-radio-button label="转弯带" value="turn">
+              <template #default>
+                <img
+                  src="@/assets/img/turn.png"
+                  style="width: 18px; height: 18px"
+                />
+              </template>
+            </el-radio-button>
+            <el-radio-button label="带" value="belt">
+              <template #default>
+                <img
+                  src="@/assets/img/belt.png"
+                  style="width: 18px; height: 18px"
+                />
+              </template>
+            </el-radio-button>
+            <el-radio-button label="一分三" value="splitter">
+              <template #default>
+                <img
+                  src="@/assets/img/one_to_three.png"
+                  style="width: 18px; height: 18px"
+                />
+              </template>
+            </el-radio-button>
+            <el-radio-button label="三合一" value="conveyer">
+              <template #default>
+                <img
+                  src="@/assets/img/three_to_one.png"
+                  style="width: 18px; height: 18px"
+                />
+              </template>
+            </el-radio-button>
+            <el-radio-button label="桥" value="cross">
+              <template #default>
+                <img
+                  src="@/assets/img/cross.png"
+                  style="width: 18px; height: 18px"
+                />
+              </template>
+            </el-radio-button>
+          </el-radio-group>
+
+          <el-button-group>
+            <el-button @click="rootStore.saveBluePrint" primary>
+              <template #icon>
+                <img
+                  src="@/assets/img/save.png"
+                  style="width: 18px; height: 18px"
+                />
+              </template>
+            </el-button>
+            <el-button @click="rootStore.importBluePrint" primary>
+              <img
+                src="@/assets/img/import.png"
+                style="width: 18px; height: 18px"
+              />
+            </el-button>
+            <el-button @click="rootStore.exportBluePrint" primary>
+              <img
+                src="@/assets/img/export.png"
+                style="width: 18px; height: 18px"
+              />
+            </el-button>
+          </el-button-group>
+        </div>
+      </div>
       <div
         class="sheng-cont-grid"
-        @wheel="rootStore.handleScalingChange"
+        @wheel="rootStore.handleScalingChange_"
         @contextmenu="rootStore.handleRightClick"
         @mousedown="selectStore.handleMouseDown"
         @mousemove="selectStore.handleMouseMove"
         @mouseup="selectStore.handleMouseUp"
       >
         <div
-          @click="rootStore.handleBeltNode"
+          @click="rootStore.handleLeftClick"
           ref="targetGrid"
           id="grid-stack"
           class="grid-stack"
@@ -186,19 +252,17 @@ import {
   nextTick,
   createVNode,
   render,
-  ref,
   getCurrentInstance,
 } from "vue";
 import { GridStack } from "gridstack";
 import { useRootStore } from "../stores/SimStore";
 import { useSelectStore } from "../stores/SelectStore";
-import { machineComponentMap, machineNameMap } from "../utils/MachineMap";
+import { machineComponentMap } from "../utils/MachineMap";
+import RecipeContent from "../components/original/RecipeContent.vue";
 import "gridstack/dist/gridstack.min.css";
 const { appContext } = getCurrentInstance();
 const rootStore = useRootStore();
 const selectStore = useSelectStore();
-const radioGroupValue = ref("close");
-const popperRef = ref(null);
 onMounted(async () => {
   await nextTick();
   //初始化
@@ -206,18 +270,20 @@ onMounted(async () => {
   const targetGridCont = document.querySelector(".sheng-cont-grid");
   const selector = document.querySelector(".selection-box");
   selectStore.initSelector(selector);
-  rootStore.initGrid(targetGridEl, targetGridCont);
+  rootStore.initGrid(targetGridEl, targetGridCont, appContext);
   //自定义克隆函数，用于拖拽添加 （提交AI整理后）
   const selfClone = (element) => {
     const cloneNode = element.cloneNode(true); // 克隆节点
     cloneNode.replaceChildren();
     cloneNode.classList.remove("sheng-cont-item");
+    cloneNode.classList.remove("sheng-cont-item-spec")
     const elConfig = JSON.parse(cloneNode.getAttribute("data-gs-widget")); // 读取配置
     const rootId = elConfig.id;
     const gsId = `${rootId}_${Date.now()}_${Math.floor(Math.random() * 1000)}`; // 生成唯一 id
     elConfig.id = gsId;
     cloneNode.setAttribute("data-gs-widget", JSON.stringify(elConfig)); // 写回配置
-    rootStore.gridWidgets[gsId] = {element:cloneNode,rotate:0,recipe:""}; // 存入 store
+    rootStore.gridWidgets[gsId] = { rotate: 0, recipe: "" }; // 存入 store
+    rootStore.gridWidgetElements[gsId] = cloneNode;
     const vnode = createVNode(machineComponentMap[rootId], {
       gs_id: gsId,
       el_name: rootId,
@@ -252,8 +318,6 @@ onMounted(async () => {
 }
 .sheng-cont-item {
   min-height: 60px;
-}
-.sidebar-item {
   overflow: hidden;
 }
 .selection-box {
@@ -262,18 +326,28 @@ onMounted(async () => {
   border: 2px dashed #0e0e0e;
   border-radius: 4px;
 }
-
 .grid-stack {
   background-color: rgba(213, 236, 255, 0.765);
   background-size: calc(100% / 72) calc(100% / 72);
   background-image: linear-gradient(to right, #fff 1px, transparent 1px),
     linear-gradient(to bottom, #fff 1px, transparent 1px);
 }
-
 :deep(.grid-stack-item) {
   text-align: center;
   border: 1px dashed #409eff;
   border-radius: 4px;
   box-sizing: border-box; /* 确保尺寸不会被边框影响 */
+}
+
+.sheng-tool-bar {
+  width: auto;
+  height: 30px;
+  z-index: 1;
+}
+.sheng-tool-bar-cont {
+  position: absolute;
+  width: 98%;
+  height: 30px;
+  top: 10px;
 }
 </style>
